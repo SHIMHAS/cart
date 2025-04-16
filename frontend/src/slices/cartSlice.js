@@ -83,6 +83,16 @@ const cartSlice = createSlice({
                 loading: false,
                 shippingInfo: {}
             }
+        },
+        orderCompleted(state, action) {
+            localStorage.removeItem('shippingInfo');
+            localStorage.removeItem('cartItems');
+            sessionStorage.removeItem('orderInfo');
+            return {
+                items: [],
+                loading: false,
+                shippingInfo: {}
+            }
         }
 
     }
