@@ -64,3 +64,82 @@ export const createReview = reviewData => async (dispatch) => {
   }
   
 }
+
+export const getAdminProducts  =  async (dispatch) => {
+
+  try {  
+      dispatch(adminProductsRequest()) 
+      const { data }  =  await axios.get(`/api/v1/admin/products`);
+      dispatch(adminProductsSuccess(data))
+  } catch (error) {
+      //handle error
+      dispatch(adminProductsFail(error.response.data.message))
+  }
+  
+}
+
+export const createNewProduct  =  productData => async (dispatch) => {
+
+  try {  
+      dispatch(newProductRequest()) 
+      const { data }  =  await axios.post(`/api/v1/admin/product/new`, productData);
+      dispatch(newProductSuccess(data))
+  } catch (error) {
+      //handle error
+      dispatch(newProductFail(error.response.data.message))
+  }
+  
+}
+
+export const deleteProduct  =  id => async (dispatch) => {
+
+  try {  
+      dispatch(deleteProductRequest()) 
+      await axios.delete(`/api/v1/admin/product/${id}`);
+      dispatch(deleteProductSuccess())
+  } catch (error) {
+      //handle error
+      dispatch(deleteProductFail(error.response.data.message))
+  }
+  
+}
+
+export const updateProduct  =  (id, productData) => async (dispatch) => {
+
+  try {  
+      dispatch(updateProductRequest()) 
+      const { data }  =  await axios.put(`/api/v1/admin/product/${id}`, productData);
+      dispatch(updateProductSuccess(data))
+  } catch (error) {
+      //handle error
+      dispatch(updateProductFail(error.response.data.message))
+  }
+  
+}
+
+
+export const getReviews =  id => async (dispatch) => {
+
+  try {  
+      dispatch(reviewsRequest()) 
+      const { data }  =  await axios.get(`/api/v1/admin/reviews`,{params: {id}});
+      dispatch(reviewsSuccess(data))
+  } catch (error) {
+      //handle error
+      dispatch(reviewsFail(error.response.data.message))
+  }
+  
+}
+
+export const deleteReview =  (productId, id) => async (dispatch) => {
+
+  try {  
+      dispatch(deleteReviewRequest()) 
+      await axios.delete(`/api/v1/admin/review`,{params: {productId, id}});
+      dispatch(deleteReviewSuccess())
+  } catch (error) {
+      //handle error
+      dispatch(deleteReviewFail(error.response.data.message))
+  }
+  
+}

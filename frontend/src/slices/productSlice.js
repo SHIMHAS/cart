@@ -67,7 +67,37 @@ const productSlice = createSlice({
             return{ ...state,
                 product : {}
             }
+        
         },
+        
+        newProductRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        newProductSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                product: action.payload.product,
+                isProductCreated: true
+            }
+        },
+        newProductFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload,
+                isProductCreated: false
+            }
+        },
+        clearProductCreated(state, action) {
+            return {
+                ...state,
+                isProductCreated: false
+            }
+        }
         
 
     }
@@ -85,6 +115,9 @@ export const {
     clearError,
     clearReviewSubmitted,
     clearProduct,
+    newProductFail,
+    newProductSuccess,
+    newProductRequest,
 } = actions;
 
 export default reduce

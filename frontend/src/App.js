@@ -30,6 +30,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import OrderSuccess from './components/cart/OrderSuccess';
 import UserOrders from './components/order/UserOrders';
 import OrderDetail from './components/order/OrderDetail';
+import Dashboard from './components/admin/Dashboard';
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("")
@@ -70,6 +71,18 @@ function App() {
 }
       </Routes>
       </div>
+      {/* Admin Routes */}
+      <Routes>
+                  <Route path='/admin/dashboard' element={ <ProtectedRoute isAdmin={true}><Dashboard/></ProtectedRoute> } />
+                  <Route path='/admin/products' element={ <ProtectedRoute isAdmin={true}><ProductList/></ProtectedRoute> } />
+                  <Route path='/admin/products/create' element={ <ProtectedRoute isAdmin={true}><NewProduct/></ProtectedRoute> } />
+                  <Route path='/admin/product/:id' element={ <ProtectedRoute isAdmin={true}><UpdateProduct/></ProtectedRoute> } />
+                  <Route path='/admin/orders' element={ <ProtectedRoute isAdmin={true}><OrderList/></ProtectedRoute> } />
+                  <Route path='/admin/order/:id' element={ <ProtectedRoute isAdmin={true}><UpdateOrder/></ProtectedRoute> } />
+                  <Route path='/admin/users' element={ <ProtectedRoute isAdmin={true}><UserList/></ProtectedRoute> } />
+                  <Route path='/admin/user/:id' element={ <ProtectedRoute isAdmin={true}><UpdateUser/></ProtectedRoute> } />
+                  <Route path='/admin/reviews' element={ <ProtectedRoute isAdmin={true}><ReviewList/></ProtectedRoute> } />
+                </Routes>
       <Footer/>
      </HelmetProvider>
     </div>
