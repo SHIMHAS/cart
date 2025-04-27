@@ -149,7 +149,7 @@ export default function ProductDetail() {
                   dispatch(addCartItem(product._id, quantity));
                   toast("Cart Item Added!", {
                     type: "success",
-                    position: toast.POSITION.BOTTOM_CENTER,
+                    position: "bottom-center",
                   });
                 }}
                 className="btn btn-primary d-inline ml-4"

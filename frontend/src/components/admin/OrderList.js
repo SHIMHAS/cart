@@ -2,19 +2,19 @@ import { Fragment, useEffect } from "react"
 import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { deleteProduct, getAdminProducts } from "../../actions/productActions"
-import { clearError, clearProductDeleted } from "../../slices/productSlice"
+import { deleteOrder, adminOrders as adminOrdersAction } from "../../actions/orderActions"
+import { clearError, clearOrderDeleted } from "../../slices/orderSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable} from 'mdbreact';
 import {toast } from 'react-toastify'
 import Sidebar from "./Sidebar"
 
-export default function ProductList() {
-    const { products = [], loading = true, error }  = useSelector(state => state.productsState)
-    const { isProductDeleted, error:productError }  = useSelector(state => state.productState)
+export default function OrderList() {
+    const { adminOrders = [], loading = true, error, isOrderDeleted }  = useSelector(state => state.orderState)
+
     const dispatch = useDispatch();
 
-    const setProducts = () => {
+    const setOrders = () => {
         const data = {
             columns : [
                 {
@@ -23,18 +23,18 @@ export default function ProductList() {
                     sort: 'asc'
                 },
                 {
-                    label: 'Name',
-                    field: 'name',
+                    label: 'Number of Items',
+                    field: 'noOfItems',
                     sort: 'asc'
                 },
                 {
-                    label: 'Price',
-                    field: 'price',
+                    label: 'Amount',
+                    field: 'amount',
                     sort: 'asc'
                 },
                 {
-                    label: 'Stock',
-                    field: 'stock',
+                    label: 'Status',
+                    field: 'status',
                     sort: 'asc'
                 },
                 {
@@ -46,16 +46,16 @@ export default function ProductList() {
             rows : []
         }
 
-        products.forEach( product => {
+        adminOrders.forEach( order => {
             data.rows.push({
-                id: product._id,
-                name: product.name,
-                price : `$${product.price}`,
-                stock: product.stock,
+                id: order._id,
+                noOfItems: order.orderItems.length,
+                amount : `$${order.totalPrice}`,
+                status: <p style={{color: order.orderStatus.includes('Processing') ? 'red' : 'green'}}>{order.orderStatus}</p> ,
                 actions: (
                     <Fragment>
-                        <Link to={`/admin/product/${product._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
-                        <Button onClick={e => deleteHandler(e, product._id)} className="btn btn-danger py-1 px-2 ml-2">
+                        <Link to={`/admin/order/${order._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
+                        <Button onClick={e => deleteHandler(e, order._id)} className="btn btn-danger py-1 px-2 ml-2">
                             <i className="fa fa-trash"></i>
                         </Button>
                     </Fragment>
@@ -68,29 +68,29 @@ export default function ProductList() {
 
     const deleteHandler = (e, id) => {
         e.target.disabled = true;
-        dispatch(deleteProduct(id))
+        dispatch(deleteOrder(id))
     }
 
     useEffect(() => {
-        if(error || productError) {
-            toast(error || productError, {
-                position:"bottom-center",
+        if(error) {
+            toast(error, {
+                position: "bottom-center",
                 type: 'error',
                 onOpen: ()=> { dispatch(clearError()) }
             })
             return
         }
-        if(isProductDeleted) {
-            toast('Product Deleted Succesfully!',{
+        if(isOrderDeleted) {
+            toast('Order Deleted Succesfully!',{
                 type: 'success',
                 position: "bottom-center",
-                onOpen: () => dispatch(clearProductDeleted())
+                onOpen: () => dispatch(clearOrderDeleted())
             })
             return;
         }
 
-        dispatch(getAdminProducts)
-    },[dispatch, error, isProductDeleted])
+        dispatch(adminOrdersAction)
+    },[dispatch, error, isOrderDeleted])
 
 
     return (
@@ -99,11 +99,11 @@ export default function ProductList() {
                 <Sidebar/>
         </div>
         <div className="col-12 col-md-10">
-            <h1 className="my-4">Product List</h1>
+            <h1 className="my-4">Order List</h1>
             <Fragment>
                 {loading ? <Loader/> : 
                     <MDBDataTable
-                        data={setProducts()}
+                        data={setOrders()}
                         bordered
                         striped
                         hover

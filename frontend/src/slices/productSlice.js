@@ -97,6 +97,81 @@ const productSlice = createSlice({
                 ...state,
                 isProductCreated: false
             }
+        },
+        deleteProductRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        deleteProductSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                isProductDeleted: true
+            }
+        },
+        deleteProductFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload,
+            }
+        },
+        clearProductDeleted(state, action) {
+            return {
+                ...state,
+                isProductDeleted: false
+            }
+        },
+
+        updateProductRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        updateProductSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                product: action.payload.product,
+                isProductUpdated: true
+            }
+        },
+        updateProductFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload,
+            }
+        },
+        clearProductUpdated(state, action) {
+            return {
+                ...state,
+                isProductUpdated: false
+            }
+        },
+
+        reviewsRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        reviewsSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                reviews: action.payload.reviews
+            }
+        },
+        reviewsFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload
+            }
         }
         
 
@@ -118,6 +193,17 @@ export const {
     newProductFail,
     newProductSuccess,
     newProductRequest,
+    deleteProductFail,
+    deleteProductRequest,
+    deleteProductSuccess,
+    clearProductDeleted,
+    updateProductFail,
+    updateProductRequest,
+    updateProductSuccess,
+    clearProductUpdated,
+    reviewsRequest,
+    reviewsFail,
+    reviewsSuccess,
 } = actions;
 
 export default reduce

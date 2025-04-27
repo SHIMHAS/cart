@@ -17,7 +17,7 @@ router.route('/products').get(getProducts);
 
 router.route('/product/:id').get(getSingleProduct);
 router.route('/product/:id').put(updateProduct);
-router.route('/product/:id').delete(deleteProduct);
+
 
 router.route('/review').put(isAuthenticatedUser,createReview)
 router.route('/review').get(getReviews)

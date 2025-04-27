@@ -52,7 +52,7 @@ export default function Payment() {
         validateShipping(shippingInfo, navigate)
         if(orderError) {
             toast(orderError, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: "bottom-center",
                 type: 'error',
                 onOpen: ()=> { dispatch(clearOrderError()) }
             })
