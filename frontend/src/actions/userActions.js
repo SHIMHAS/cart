@@ -2,8 +2,8 @@
 import {
     loginFail,
     loginRequest, 
-    loginSuccess,
-    clearError, 
+    loginSuccess, 
+    clearError,
     registerFail,
     registerRequest,
     registerSuccess,
@@ -24,24 +24,40 @@ import {
     resetPasswordRequest,
     resetPasswordSuccess,
     resetPasswordFail
-    } from '../slices/authSlice';
+} from '../slices/authSlice';
+
+import {
+    usersRequest,
+    usersSuccess,
+    usersFail,
+    userRequest,
+    userSuccess,
+    userFail,
+    deleteUserRequest,
+    deleteUserSuccess,
+    deleteUserFail,
+    updateUserRequest,
+    updateUserSuccess,
+    updateUserFail
+
+} from '/slices/userSlice'
 import axios from 'axios';
 
 export const login = (email, password) => async (dispatch) => {
 
-    try {
-        dispatch(loginRequest())
-        const { data }  = await axios.post(`/api/v1/login`,{email,password});
-        dispatch(loginSuccess(data))
-    } catch (error) {
-        dispatch(loginFail(error.response.data.message))
-    }
+        try {
+            dispatch(loginRequest())
+            const { data }  = await axios.post(`/api/v1/login`,{email,password});
+            dispatch(loginSuccess(data))
+        } catch (error) {
+            dispatch(loginFail(error.response.data.message))
+        }
 
 }
-export const clearAuthError = () => (dispatch) => {
-    dispatch(clearError());
-  };
 
+export const clearAuthError = dispatch => {
+    dispatch(clearError())
+}
 
 export const register = (userData) => async (dispatch) => {
 
@@ -61,15 +77,19 @@ export const register = (userData) => async (dispatch) => {
 
 }
 
-export const loadUser = () => async (dispatch) => {
+export const loadUser =  async (dispatch) => {
+
     try {
-        dispatch(loadUserRequest());
-        const { data } = await axios.get(`/api/v1/myprofile`);
-        dispatch(loadUserSuccess(data));
+        dispatch(loadUserRequest())
+       
+
+        const { data }  = await axios.get(`/api/v1/myprofile`);
+        dispatch(loadUserSuccess(data))
     } catch (error) {
-        dispatch(loadUserFail(error.response.data.message));
+        dispatch(loadUserFail(error.response.data.message))
     }
-};
+
+}
 
 export const logout =  async (dispatch) => {
 
@@ -77,8 +97,7 @@ export const logout =  async (dispatch) => {
         await axios.get(`/api/v1/logout`);
         dispatch(logoutSuccess())
     } catch (error) {
-        dispatch(logoutFail(error.response.data.message));
-
+        dispatch(logoutFail)
     }
 
 }
@@ -118,7 +137,6 @@ export const updatePassword = (formData) => async (dispatch) => {
 
 }
 
-
 export const forgotPassword = (formData) => async (dispatch) => {
 
     try {
@@ -149,6 +167,59 @@ export const resetPassword = (formData, token) => async (dispatch) => {
         dispatch(resetPasswordSuccess(data))
     } catch (error) {
         dispatch(resetPasswordFail(error.response.data.message))
+    }
+
+}
+
+export const getUsers =  async (dispatch) => {
+
+    try {
+        dispatch(usersRequest())
+        const { data }  = await axios.get(`/api/v1/admin/users`);
+        dispatch(usersSuccess(data))
+    } catch (error) {
+        dispatch(usersFail(error.response.data.message))
+    }
+
+}
+
+export const getUser = id => async (dispatch) => {
+
+    try {
+        dispatch(userRequest())
+        const { data }  = await axios.get(`/api/v1/admin/user/${id}`);
+        dispatch(userSuccess(data))
+    } catch (error) {
+        dispatch(userFail(error.response.data.message))
+    }
+
+}
+
+export const deleteUser = id => async (dispatch) => {
+
+    try {
+        dispatch(deleteUserRequest())
+        await axios.delete(`/api/v1/admin/user/${id}`);
+        dispatch(deleteUserSuccess())
+    } catch (error) {
+        dispatch(deleteUserFail(error.response.data.message))
+    }
+
+}
+
+export const updateUser = (id, formData) => async (dispatch) => {
+
+    try {
+        dispatch(updateUserRequest())
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        await axios.put(`/api/v1/admin/user/${id}`, formData, config);
+        dispatch(updateUserSuccess())
+    } catch (error) {
+        dispatch(updateUserFail(error.response.data.message))
     }
 
 }
