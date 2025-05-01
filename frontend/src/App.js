@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import ProductDetails from './components/product/productDetails';
+import ProductDetails from './components/product/ProductDetail';
 import ProductSearch from './components/product/ProductSearch';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
@@ -24,7 +24,7 @@ import ResetPassword from './components/user/ResetPassword';
 import Cart from './components/cart/Cart';
 import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
-import Payment from './components/cart/payment';
+import Payment from './components/cart/Payment';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import OrderSuccess from './components/cart/OrderSuccess';

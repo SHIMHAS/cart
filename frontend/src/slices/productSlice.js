@@ -172,6 +172,32 @@ const productSlice = createSlice({
                 loading: false,
                 error:  action.payload
             }
+        },
+        deleteReviewRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        deleteReviewSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                isReviewDeleted: true
+            }
+        },
+        deleteReviewFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload,
+            }
+        },
+        clearReviewDeleted(state, action) {
+            return {
+                ...state,
+                isReviewDeleted: false
+            }
         }
         
 
@@ -188,6 +214,7 @@ export const {
     createReviewRequest,
     createReviewSuccess,
     clearError,
+    clearProductCreated,
     clearReviewSubmitted,
     clearProduct,
     newProductFail,
@@ -204,6 +231,10 @@ export const {
     reviewsRequest,
     reviewsFail,
     reviewsSuccess,
+    deleteReviewFail,
+    deleteReviewRequest,
+    deleteReviewSuccess,
+    clearReviewDeleted
 } = actions;
 
-export default reduce
+export default reducer

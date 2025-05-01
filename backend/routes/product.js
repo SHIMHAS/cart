@@ -20,8 +20,6 @@ router.route('/product/:id').put(updateProduct);
 
 
 router.route('/review').put(isAuthenticatedUser,createReview)
-router.route('/review').get(getReviews)
-router.route('/review').delete(deleteReview)
 
 
 //Admin routes
