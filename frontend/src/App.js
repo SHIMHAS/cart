@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import ProductDetails from './components/product/ProductDetail';
+import ProductDetail from './components/product/ProductDetail';
 import ProductSearch from './components/product/ProductSearch';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
@@ -61,7 +61,7 @@ function App() {
       <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/search/:keyword' element={<ProductSearch/>} />
-      <Route path='/product/:id' element={<ProductDetails/>} />
+      <Route path='/product/:id' element={<ProductDetail/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/register' element={<Register/>} />
       <Route path='/myprofile' element={<ProtectedRoute><Profile/></ProtectedRoute>} />

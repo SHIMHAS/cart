@@ -29,13 +29,13 @@ export default function ProductDetail() {
 
   const increaseQty = () => {
     const count = document.querySelector(".count");
-    if (product.stock == 0 || count.valueAsNumber >= product.stock) return;
+    if (product.stock === 0 || count.valueAsNumber >= product.stock) return;
     const qty = count.valueAsNumber + 1;
     setQuantity(qty);
   };
   const decreaseQty = () => {
     const count = document.querySelector(".count");
-    if (count.valueAsNumber == 1) return;
+    if (count.valueAsNumber === 1) return;
     const qty = count.valueAsNumber - 1;
     setQuantity(qty);
   };
@@ -60,13 +60,13 @@ export default function ProductDetail() {
       handleClose();
       toast("Review Submitted successfully", {
         type: "success",
-        position:"bottom-center",
+        position: "bottom-center",
         onOpen: () => dispatch(clearReviewSubmitted()),
       });
     }
     if (error) {
       toast(error, {
-        position:"bottom-center",
+        position: "bottom-center",
         type: "error",
         onOpen: () => {
           dispatch(clearError());
@@ -82,6 +82,7 @@ export default function ProductDetail() {
       dispatch(clearProduct());
     };
   }, [dispatch, id, isReviewSubmitted, error]);
+
   return (
     <Fragment>
       {loading ? (

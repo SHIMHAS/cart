@@ -31,7 +31,7 @@ export const getProducts = (keyword,price,category,rating, currentPage) => async
 export const getProduct =id => async (dispatch) => {
   try {
     dispatch(productRequest());
-    const { data } = await axios.get(`api/v1/product/${id}`);
+    const { data } = await axios.get(`/api/v1/product/${id}`);
     dispatch(productSuccess(data));
   } catch (error) {
     //handle error
@@ -57,18 +57,17 @@ export const createReview = reviewData => async (dispatch) => {
   
 }
 
-export const getAdminProducts  =  async (dispatch) => {
+export const getAdminProducts = () => async (dispatch) => {
+  try {
+    dispatch(adminProductsRequest());
 
-  try {  
-      dispatch(adminProductsRequest()) 
-      const { data }  =  await axios.get(`/api/v1/admin/products`);
-      dispatch(adminProductsSuccess(data))
+    const { data } = await axios.get(`/api/v1/admin/products`);
+    
+    dispatch(adminProductsSuccess(data));
   } catch (error) {
-      //handle error
-      dispatch(adminProductsFail(error.response.data.message))
+    dispatch(adminProductsFail(error.response?.data?.message || error.message));
   }
-  
-}
+};
 
 export const createNewProduct  =  productData => async (dispatch) => {
 
