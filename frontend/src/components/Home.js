@@ -24,21 +24,23 @@ export default function Home() {
         position: "bottom-center",
       });
     }
-    dispatch(getProducts(null,null,null,null,currentPage));
-  }, []);
+    dispatch(getProducts(null, null, null, null, currentPage));
+  }, [dispatch, error, currentPage]);
   return (
     <Fragment>
-        {loading ? <Loader/>:
-            <Fragment>
-                <MetaData title={'Buy Best Products'} />
-                <h1 id="products_heading">Latest Products</h1>
-                <section id="products" className="container mt-5">
-                    <div className="row">
-                        { products && products.map(product => (
-                            <Product col={3} key={product._id}  product={product}/>
-                        ))}
-                    
-                    </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <MetaData title={"Buy Best Products"} />
+          <h1 id="products_heading">Latest Products</h1>
+          <section id="products" className="container mt-5">
+            <div className="row">
+              {products &&
+                products.map((product) => (
+                  <Product col={3} key={product._id} product={product} />
+                ))}
+            </div>
           </section>
           {productsCount > 0 && productsCount > resPerPage ? (
             <div className="d-flex justify-content-center mt-5">
@@ -56,7 +58,7 @@ export default function Home() {
             </div>
           ) : null}
         </Fragment>
-      }
+      )}
     </Fragment>
   );
 }

@@ -55,9 +55,9 @@ export const login = (email, password) => async (dispatch) => {
 
 }
 
-export const clearAuthError = dispatch => {
-    dispatch(clearError())
-}
+export const clearAuthError = () => (dispatch) => {
+    dispatch(clearError());
+};
 
 export const register = (userData) => async (dispatch) => {
 

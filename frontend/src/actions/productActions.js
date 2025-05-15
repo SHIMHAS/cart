@@ -6,7 +6,7 @@ import { productFail, productSuccess, productRequest, createReviewRequest, creat
 export const getProducts = (keyword,price,category,rating, currentPage) => async (dispatch) => {
   try {
     dispatch(productsRequest());
-    let link = `/api/v1/products?page=${currentPage}`;
+    let link = `api/v1/products?page=${currentPage}`;
     if (keyword) {
       link += `&keyword=${keyword}`;
     }
